@@ -1,0 +1,54 @@
+# KinectToRanger CMake config file
+#
+# This file sets the following variables:
+# KinectToRanger_FOUND - Always TRUE.
+# KinectToRanger_INCLUDE_DIRS - Directories containing the KinectToRanger include files.
+# KinectToRanger_IDL_DIRS - Directories containing the KinectToRanger IDL files.
+# KinectToRanger_LIBRARIES - Libraries needed to use KinectToRanger.
+# KinectToRanger_DEFINITIONS - Compiler flags for KinectToRanger.
+# KinectToRanger_VERSION - The version of KinectToRanger found.
+# KinectToRanger_VERSION_MAJOR - The major version of KinectToRanger found.
+# KinectToRanger_VERSION_MINOR - The minor version of KinectToRanger found.
+# KinectToRanger_VERSION_REVISION - The revision version of KinectToRanger found.
+# KinectToRanger_VERSION_CANDIDATE - The candidate version of KinectToRanger found.
+
+message(STATUS "Found KinectToRanger-@PROJECT_VERSION@")
+set(KinectToRanger_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(KinectToRanger_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(KinectToRanger_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(KinectToRanger_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(KinectToRanger_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(KinectToRanger_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(KinectToRanger_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(KinectToRanger_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(KinectToRanger_VERSION @PROJECT_VERSION@)
+set(KinectToRanger_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(KinectToRanger_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(KinectToRanger_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(KinectToRanger_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
