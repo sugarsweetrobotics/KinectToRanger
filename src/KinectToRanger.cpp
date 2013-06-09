@@ -111,6 +111,20 @@ RTC::ReturnCode_t KinectToRanger::onDeactivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t KinectToRanger::onExecute(RTC::UniqueId ec_id)
 {
+  if (m_depthIn.isNew()) {
+    m_depthIn.read();
+    int focus_line = m_depth.height / 2;
+    m_range.config.angularRes = m_depth.horizontalFieldOfView / m_depth.width;
+    m_range.config.minAngle = - m_depth.horizontalFieldOfView / 2;
+    m_range.config.maxAngle = + m_depth.horizontalFieldOfView / 2;
+    m_range.ranges.length(m_depth.width);
+    int h = m_depth.height / 2;
+    for (int w = 0;w < m_depth.width;w++) {
+      int index = h * m_depth.width + w;
+      m_range.ranges[index] = m_depth.bits[index];
+    }
+    m_rangeOut.write();
+  }
   return RTC::RTC_OK;
 }
 
