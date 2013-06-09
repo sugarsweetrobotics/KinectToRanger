@@ -121,7 +121,7 @@ RTC::ReturnCode_t KinectToRanger::onExecute(RTC::UniqueId ec_id)
     int h = m_depth.height / 2;
     for (int w = 0;w < m_depth.width;w++) {
       int index = h * m_depth.width + w;
-      m_range.ranges[index] = m_depth.bits[index];
+      m_range.ranges[w] = m_depth.bits[index];
     }
     m_rangeOut.write();
   }
