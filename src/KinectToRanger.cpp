@@ -7,6 +7,7 @@
  * $Id$
  */
 
+
 #include "KinectToRanger.h"
 
 // Module specification
@@ -120,8 +121,9 @@ RTC::ReturnCode_t KinectToRanger::onExecute(RTC::UniqueId ec_id)
     m_range.ranges.length(m_depth.width);
     int h = m_depth.height / 2;
     for (int w = 0;w < m_depth.width;w++) {
+      double angle = m_range.config.minAngle + m_range.config.angularRes * w;
       int index = h * m_depth.width + w;
-      m_range.ranges[w] = m_depth.bits[index];
+      m_range.ranges[w] = m_depth.bits[index] / 1000.0 / cos(angle);
     }
     m_rangeOut.write();
   }
