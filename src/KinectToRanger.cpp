@@ -118,6 +118,8 @@ RTC::ReturnCode_t KinectToRanger::onExecute(RTC::UniqueId ec_id)
     m_range.config.angularRes = m_depth.horizontalFieldOfView / m_depth.width;
     m_range.config.minAngle = - m_depth.horizontalFieldOfView / 2;
     m_range.config.maxAngle = + m_depth.horizontalFieldOfView / 2;
+    m_range.config.minRange = 0.085;
+    m_range.config.maxRange = 4.000;
     m_range.ranges.length(m_depth.width);
     int h = m_depth.height / 2;
     for (int w = 0;w < m_depth.width;w++) {
